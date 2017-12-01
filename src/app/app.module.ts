@@ -5,12 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { TodosPage } from '../pages/todos/todos';
+import { AddTaskModalPage } from "../pages/add-task-modal/add-task-modal";
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    TodosPage,
+    AddTaskModalPage
   ],
   imports: [
     BrowserModule,
@@ -19,7 +21,8 @@ import { HomePage } from '../pages/home/home';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    TodosPage,
+    AddTaskModalPage
   ],
   providers: [
     StatusBar,
