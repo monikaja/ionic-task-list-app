@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {AddTaskModalPage} from "../add-task-modal/add-task-modal";
+import {TodoServiceProvider} from "../../providers/todo-service/todo-service";
 
 /**
  * Generated class for the TodosPage page.
@@ -16,28 +17,13 @@ import {AddTaskModalPage} from "../add-task-modal/add-task-modal";
 })
 export class TodosPage {
 
-  public todos: any[];
+  public todos:any[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl : ModalController) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TodosPage');
-    this.todos = [
-      {desc: 'hola que tal esto es una tarea', isDone: false},
-      {desc: 'checked Task', isDone: true},
-      {desc: 'hola que tal esto es una tarea', isDone: false},
-      {desc: 'hola que tal esto es una tarea', isDone: false},
-      {desc: 'hola que tal esto es una tarea', isDone: false},
-      {desc: 'checked Task', isDone: true},
-      {desc: 'hola que tal esto es una tarea', isDone: false},
-      {desc: 'hola que tal esto es una tarea', isDone: false},
-      {desc: 'hola que tal esto es una tarea', isDone: false}
-    ];
-  }
-
-  toogleChecked(item):void{
-    item.isDone = !item.Done;
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private modalCtrl : ModalController,
+              public todoService: TodoServiceProvider) {
+    this.todos = todoService.getTodos();
   }
 
   addItem():void{
@@ -47,11 +33,12 @@ export class TodosPage {
 
     modal.onDidDismiss( data => {
       if(data)
-        this.saveNewItem(data);
+        this.todoService.saveNewItem(data);
     });
   }
 
-  saveNewItem(item:any):void{
-    this.todos.push(item);
+  toogleChecked(item):void{
+    this.todoService.toogleChecked(item);
   }
+
 }
