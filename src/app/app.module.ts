@@ -9,12 +9,14 @@ import { TodosPage } from '../pages/todos/todos';
 import { AddTaskModalPage } from "../pages/add-task-modal/add-task-modal";
 import { TodoServiceProvider } from '../providers/todo-service/todo-service';
 import { HttpClientModule } from '@angular/common/http';
+import { DoneTodosPipe} from "../pipes/done-todos-page/done-todos-page";
 
 @NgModule({
   declarations: [
     MyApp,
     TodosPage,
-    AddTaskModalPage
+    AddTaskModalPage,
+    DoneTodosPipe
   ],
   imports: [
     BrowserModule,
