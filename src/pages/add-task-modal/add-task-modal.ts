@@ -16,20 +16,27 @@ import { IonicPage, ViewController, NavParams } from 'ionic-angular';
 export class AddTaskModalPage {
 
   public model = {desc:'', isDone:''};
+  public tittle: string = "Add new task";
+  public buttonText:string = "ADD";
 
   constructor(public viewCtrl: ViewController, public navParams: NavParams) {
+    if(this.navParams.get('todo')){
+      this.model = this.clone(this.navParams.get('todo'));
+      this.tittle = "Edit task";
+      this.buttonText = "Save changes";
+    }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddTaskModalPage');
+  clone(todo){
+    return {desc: todo.desc, isDone: todo.isDone};
   }
 
   dismiss(){
     this.viewCtrl.dismiss();
   }
 
-  save(){
-    console.log(this.model);
+  save(model){
+    console.log(model);
     this.viewCtrl.dismiss(this.model);
   }
 }

@@ -12,9 +12,11 @@ export class TodoServiceProvider {
 
   private todos: any[];
 
-  constructor(private http: HttpClientModule) {
-    console.log('Hello TodoServiceProvider Provider');
+  constructor(public http: HttpClientModule) {
+    this.getTodos();
+  }
 
+  getTodos():void{
     this.todos = [
       {desc: 'hola que tal esto es una tarea', isDone: false},
       {desc: 'checked Task', isDone: true},
@@ -28,16 +30,29 @@ export class TodoServiceProvider {
     ];
   }
 
-  getTodos():any[]{
-    return this.todos;
-  }
-
   toogleChecked(item):void{
     item.isDone = !item.Done;
   }
 
   saveNewItem(item:any):void{
     this.todos.push(item);
+  }
+
+  removeTodo(item:any):void{
+    const index = this.todos.indexOf(item);
+    this.todos = [
+      ...this.todos.slice(0, index),
+      ...this.todos.slice(index+1)
+    ];
+  }
+
+  saveEditItem(item:any, newItem:any):void{
+    const index = this.todos.indexOf(item);
+    this.todos = [
+      ...this.todos.slice(0, index),
+      newItem,
+      ...this.todos.slice(index+1)
+    ];
   }
 }
 

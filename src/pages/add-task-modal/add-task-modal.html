@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-toolbar>
-    <ion-title>Add new task</ion-title>
+    <ion-title>{{tittle}}</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <ion-icon name="md-close"></ion-icon>
@@ -20,12 +20,12 @@
 
 <ion-content>
   <ion-list no-lines>
-    <form class="container" (ngSubmit)="save()"></form>
+    <form class="container"></form>
     <ion-item>
-      <ion-input placeholder="Task description" name="desc" clearInput [(ngModel)]="model.desc" required #desc="ngModel"></ion-input>
+      <ion-input placeholder="Task description" name="desc" clearInput [(ngModel)]="model.desc" required #description="ngModel"></ion-input>
     </ion-item>
 
-    <ion-item color="danger" [hidden]="desc.valid || desc.untouched">
+    <ion-item color="danger" [hidden]="description.valid || description.untouched">
       Description is required
     </ion-item>
 
@@ -35,7 +35,7 @@
     </ion-item>
 
     <div class="save-button">
-      <button ion-button block type="submit" [disabled]="!desc.valid">Save</button>
+      <button ion-button block type="button" (click)="save(model)" [disabled]="!description.valid">{{buttonText}}</button>
     </div>
   </ion-list>
 </ion-content>

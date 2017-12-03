@@ -17,13 +17,10 @@ import {TodoServiceProvider} from "../../providers/todo-service/todo-service";
 })
 export class TodosPage {
 
-  public todos:any[];
-
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private modalCtrl : ModalController,
               public todoService: TodoServiceProvider) {
-    this.todos = todoService.getTodos();
   }
 
   addItem():void{
@@ -35,6 +32,20 @@ export class TodosPage {
       if(data)
         this.todoService.saveNewItem(data);
     });
+  }
+  editTodo(todo):void{
+    // this.todos.push({desc: 'new item', isDone: false});
+    let modal = this.modalCtrl.create(AddTaskModalPage, {todo});
+    modal.present();
+
+    modal.onDidDismiss( data => {
+      if(data)
+        this.todoService.saveEditItem(todo, data);
+    });
+  }
+
+  removeTodo(item:any):void{
+    this.todoService.removeTodo(item);
   }
 
   toogleChecked(item):void{
