@@ -6,13 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
  * See https://angular.io/api/core/Pipe for more info on Angular Pipes.
  */
 @Pipe({
-  name: 'doneTodosPipe',
-  pure: false
+  name: 'doneTodosPipe'
 })
 export class DoneTodosPipe implements PipeTransform {
-  /**
-   * Takes a value and makes it lowercase.
-   */
+
   transform(todos: any[]) {
     return todos.filter(todo => todo.isDone);
   }

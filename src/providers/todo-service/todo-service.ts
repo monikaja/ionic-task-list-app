@@ -31,11 +31,18 @@ export class TodoServiceProvider {
   }
 
   toogleChecked(item):void{
-    item.isDone = !item.Done;
+    let itemIndex = this.todos.indexOf(item);
+
+    this.todos = [
+      ...this.todos.slice(0, itemIndex),
+      {isDone: !item.isDone, desc: item.desc},
+      ...this.todos.slice(itemIndex+1)
+    ];
   }
 
   saveNewItem(item:any):void{
-    this.todos.push(item);
+    this.todos = [...this.todos, item];
+    // this.todos.push(item);
   }
 
   removeTodo(item:any):void{

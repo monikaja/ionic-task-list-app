@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
-import {AddTaskModalPage} from "../add-task-modal/add-task-modal";
-import {TodoServiceProvider} from "../../providers/todo-service/todo-service";
+import { IonicPage, ModalController, NavController, NavParams } from 'ionic-angular';
+import { AddTaskModalPage } from "../add-task-modal/add-task-modal";
+import { TodoServiceProvider } from "../../providers/todo-service/todo-service";
 
 /**
  * Generated class for the TodosPage page.
@@ -24,7 +24,6 @@ export class TodosPage {
   }
 
   addItem():void{
-    // this.todos.push({desc: 'new item', isDone: false});
     let modal = this.modalCtrl.create(AddTaskModalPage);
     modal.present();
 
@@ -34,7 +33,6 @@ export class TodosPage {
     });
   }
   editTodo(todo):void{
-    // this.todos.push({desc: 'new item', isDone: false});
     let modal = this.modalCtrl.create(AddTaskModalPage, {todo});
     modal.present();
 
