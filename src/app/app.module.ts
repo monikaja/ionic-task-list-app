@@ -7,10 +7,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { TodosPage } from '../pages/todos/todos';
 import { AddTaskModalPage } from "../pages/add-task-modal/add-task-modal";
+import { ListsPage} from "../pages/lists/lists";
 import { TodoServiceProvider } from '../providers/todo-service/todo-service';
 import { HttpClientModule } from '@angular/common/http';
-import { DoneTodosPipe } from "../shared/pipes/done-todos/done-todos";
-import { UndoneTodosPipe } from "../shared/pipes/undone-todos/undone-todos";
+import { DoneTodosPipe } from "../pipes/done-todos/done-todos";
+import { UndoneTodosPipe } from "../pipes/undone-todos/undone-todos";
+import { ListServiceProvider } from '../providers/list-service/list-service';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { UndoneTodosPipe } from "../shared/pipes/undone-todos/undone-todos";
     TodosPage,
     DoneTodosPipe,
     UndoneTodosPipe,
-    AddTaskModalPage
+    AddTaskModalPage,
+    ListsPage
   ],
   imports: [
     BrowserModule,
@@ -29,13 +32,16 @@ import { UndoneTodosPipe } from "../shared/pipes/undone-todos/undone-todos";
   entryComponents: [
     MyApp,
     TodosPage,
-    AddTaskModalPage
+    AddTaskModalPage,
+    ListsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     TodoServiceProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    ListServiceProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ListServiceProvider
   ]
 })
 export class AppModule {}

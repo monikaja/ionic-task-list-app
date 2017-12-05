@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { TodosPage } from './todos';
-import { SharedModule} from '../../shared/pipes/pipes.module';
+import { DoneTodosPipe} from "../../pipes/done-todos/done-todos";
+import { UndoneTodosPipe} from "../../pipes/undone-todos/undone-todos";
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { SharedModule} from '../../shared/pipes/pipes.module';
   ],
   imports: [
     IonicPageModule.forChild(TodosPage),
-    SharedModule
+    DoneTodosPipe,
+    UndoneTodosPipe
   ],
 })
 export class TodosPageModule {}
