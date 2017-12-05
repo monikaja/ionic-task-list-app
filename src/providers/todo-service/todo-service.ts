@@ -13,21 +13,25 @@ export class TodoServiceProvider {
   private todos: any[];
 
   constructor(public http: HttpClientModule) {
-    this.getTodos();
   }
 
-  getTodos():void{
-    this.todos = [
-      {desc: 'hola que tal esto es una tarea', isDone: false},
-      {desc: 'checked Task', isDone: true},
-      {desc: 'hola que tal esto es una tarea', isDone: false},
-      {desc: 'hola que tal esto es una tarea', isDone: false},
-      {desc: 'hola que tal esto es una tarea', isDone: false},
-      {desc: 'checked Task', isDone: true},
-      {desc: 'hola que tal esto es una tarea', isDone: false},
-      {desc: 'hola que tal esto es una tarea', isDone: false},
-      {desc: 'hola que tal esto es una tarea', isDone: false}
-    ];
+  loadFromList(id:number):void{
+    if(id<3){
+      this.todos = [];
+    }
+    else{
+      this.todos = [
+        {desc: 'hola que tal esto es una tarea', isDone: false},
+        {desc: 'checked Task', isDone: true},
+        {desc: 'hola que tal esto es una tarea', isDone: false},
+        {desc: 'hola que tal esto es una tarea', isDone: false},
+        {desc: 'hola que tal esto es una tarea', isDone: false},
+        {desc: 'checked Task', isDone: true},
+        {desc: 'hola que tal esto es una tarea', isDone: false},
+        {desc: 'hola que tal esto es una tarea', isDone: false},
+        {desc: 'hola que tal esto es una tarea', isDone: false}
+      ];
+    }
   }
 
   toogleChecked(item):void{

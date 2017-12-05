@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>To Do List</ion-title>
+    <ion-title>{{list.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,6 +15,7 @@
 
 <ion-content padding>
   <ion-list no-lines>
+    <ion-item *ngIf="!todoService.todos || todoService.todos.length===0">Add tasks to the list</ion-item>
     <ion-item-sliding *ngFor="let todo of todoService.todos | undoneTodosPipe">
 
       <ion-item>

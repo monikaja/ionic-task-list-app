@@ -4,6 +4,7 @@ import { TodosPage} from "../todos/todos";
 import { AlertController} from "ionic-angular";
 
 import { ListServiceProvider} from "../../providers/list-service/list-service";
+import { ListModel} from "../../data/list-model";
 
 /**
  * Generated class for the ListsPage page.
@@ -23,8 +24,8 @@ export class ListsPage {
               public alertCtrl: AlertController, public listService:ListServiceProvider) {
   }
 
-  goToList(list:string):void{
-    this.navCtrl.push(TodosPage);
+  goToList(list: ListModel):void{
+    this.navCtrl.push(TodosPage, {list});
   }
 
   showAddList(){
