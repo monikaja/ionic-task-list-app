@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DoneTodosPipe } from "../pipes/done-todos/done-todos";
 import { UndoneTodosPipe } from "../pipes/undone-todos/undone-todos";
 import { ListServiceProvider } from '../providers/list-service/list-service';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ListServiceProvider } from '../providers/list-service/list-service';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

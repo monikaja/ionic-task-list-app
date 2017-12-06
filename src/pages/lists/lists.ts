@@ -54,6 +54,8 @@ export class ListsPage {
   }
 
   addList(name:string):void{
-    this.listService.addList(name);
+    let list= this.listService.addList(name);
+    this.listService.saveStorage();
+    this.goToList(list);
   }
 }

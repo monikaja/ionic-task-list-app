@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
+import { TodoModel} from "../../data/todo-model";
+import { Storage} from "@ionic/storage";
 /*
   Generated class for the TodoServiceProvider provider.
 
@@ -10,28 +11,36 @@ import { HttpClientModule } from '@angular/common/http';
 @Injectable()
 export class TodoServiceProvider {
 
-  private todos: any[];
+  private todos:TodoModel[] = [];
 
-  constructor(public http: HttpClientModule) {
+  constructor(public http: HttpClientModule, public storage:Storage) {
   }
 
   loadFromList(id:number):void{
-    if(id<3){
-      this.todos = [];
-    }
-    else{
-      this.todos = [
-        {desc: 'hola que tal esto es una tarea', isDone: false},
-        {desc: 'checked Task', isDone: true},
-        {desc: 'hola que tal esto es una tarea', isDone: false},
-        {desc: 'hola que tal esto es una tarea', isDone: false},
-        {desc: 'hola que tal esto es una tarea', isDone: false},
-        {desc: 'checked Task', isDone: true},
-        {desc: 'hola que tal esto es una tarea', isDone: false},
-        {desc: 'hola que tal esto es una tarea', isDone: false},
-        {desc: 'hola que tal esto es una tarea', isDone: false}
-      ];
-    }
+    this.getFromStorage(id);
+  }
+
+  private getFromStorage(id:number){
+    this.storage.ready().then( () => {
+      this.storage.get(`list/${id}`).then( data => {
+        if(data){
+          this.todos = [];
+          return;
+        }
+        let localTodos: any = [];
+        for(let todo of data){
+          localTodos.push(new TodoModel(data.desc, data.isDone));
+        }
+        this.todos = localTodos;
+      })
+
+    })
+  }
+
+  public saveStorage(id:number){
+    this.storage.ready().then( ()=> {
+      this.storage.set(`list/${id}`, this.todos);
+    })
   }
 
   toogleChecked(item):void{
