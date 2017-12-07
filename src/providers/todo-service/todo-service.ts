@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { TodoModel} from "../../data/todo-model";
 import { Storage} from "@ionic/storage";
+import { AppSettings} from "../../data/app-settings";
 /*
   Generated class for the TodoServiceProvider provider.
 
@@ -13,14 +14,33 @@ export class TodoServiceProvider {
 
   private todos:TodoModel[] = [];
 
-  constructor(public http: HttpClientModule, public storage:Storage) {
+  constructor(public http: HttpClient, public storage:Storage) {
   }
 
 
   loadFromList(id:number):void{
-    this.getFromStorage(id);
+    // this.getFromStorage(id);
+    this.getFromServer(id);
   }
 
+  private getFromServer(id){
+    this.http.get(AppSettings.API_BASEURL + '/lists/'+id+'/todos')
+      .map(response => { return JSON.parse(JSON.stringify(response))})
+      .map((todos:Object[]) => {
+        return todos.map (item => TodoModel.fromJson(item))
+      })
+      .subscribe(
+        (result: TodoModel[]) => {
+          this.todos = result;
+          this.saveStorage(id);
+        },
+        error => {
+          console.log("Error getting todos from server", error);
+        }
+      )
+  }
+
+  /*
   private getFromStorage(id:number){
     this.storage.ready().then( () => {
       this.storage.get('list/'+id).then( data => {
@@ -30,14 +50,14 @@ export class TodoServiceProvider {
         }
         let localTodos: any = [];
         for(let todo of data){
-          localTodos.push(new TodoModel(todo.desc, todo.isDone));
+          localTodos.push(TodoModel.clone(todo));
         }
         this.todos = localTodos;
       })
 
     })
   }
-
+  */
   public saveStorage(id:number){
     this.storage.ready().then( ()=> {
       this.storage.set(`list/${id}`, this.todos);
@@ -49,7 +69,7 @@ export class TodoServiceProvider {
 
     this.todos = [
       ...this.todos.slice(0, itemIndex),
-      {isDone: !item.isDone, desc: item.desc},
+      new TodoModel(item.description,  item.listId, item.isImportant, !item.isDone, item.id),
       ...this.todos.slice(itemIndex+1)
     ];
   }
