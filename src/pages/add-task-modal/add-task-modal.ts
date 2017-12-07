@@ -16,7 +16,7 @@ import { TodoModel} from "../../data/todo-model";
 })
 export class AddTaskModalPage {
 
-  public model = new TodoModel('',false);//necesarion inicializar, si no, explota
+  public model = new TodoModel('',false);//necessary to initialize
   public tittle: string = "Add new task";
   public buttonText:string = "ADD";
 

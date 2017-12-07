@@ -28,7 +28,7 @@ export class TodosPage {
     this.todoService.loadFromList(this.list.id);
   }
 
-  ionViewWillUnload(){
+  ionViewWillUnload(){ //ionic lifecycle predefined method
     this.todoService.saveStorage(this.list.id);
   }
 
