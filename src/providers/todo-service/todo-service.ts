@@ -16,20 +16,21 @@ export class TodoServiceProvider {
   constructor(public http: HttpClientModule, public storage:Storage) {
   }
 
+
   loadFromList(id:number):void{
     this.getFromStorage(id);
   }
 
   private getFromStorage(id:number){
     this.storage.ready().then( () => {
-      this.storage.get(`list/${id}`).then( data => {
-        if(data){
+      this.storage.get('list/'+id).then( data => {
+        if(!data){
           this.todos = [];
           return;
         }
         let localTodos: any = [];
         for(let todo of data){
-          localTodos.push(new TodoModel(data.desc, data.isDone));
+          localTodos.push(new TodoModel(todo.desc, todo.isDone));
         }
         this.todos = localTodos;
       })
@@ -55,7 +56,6 @@ export class TodoServiceProvider {
 
   saveNewItem(item:any):void{
     this.todos = [...this.todos, item];
-    // this.todos.push(item);
   }
 
   removeTodo(item:any):void{

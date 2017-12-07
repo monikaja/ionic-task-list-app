@@ -6,7 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * See https://angular.io/api/core/Pipe for more info on Angular Pipes.
  */
 @Pipe({
-  name: 'undoneTodosPipe'
+  name: 'undoneTodosPipe',
+  pure: false
 })
 export class UndoneTodosPipe implements PipeTransform {
 

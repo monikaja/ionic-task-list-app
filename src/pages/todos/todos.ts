@@ -14,9 +14,11 @@ import { ListModel} from "../../data/list-model";
 @IonicPage()
 @Component({
   selector: 'page-todos',
-  templateUrl: 'todos.html',
+  templateUrl: 'todos.html'
 })
 export class TodosPage {
+
+  private list:ListModel;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -25,7 +27,10 @@ export class TodosPage {
     this.list = this.navParams.get('list');
     this.todoService.loadFromList(this.list.id);
   }
-  private list:ListModel;
+
+  ionViewWillUnload(){
+    this.todoService.saveStorage(this.list.id);
+  }
 
   addItem():void{
     let modal = this.modalCtrl.create(AddTaskModalPage);

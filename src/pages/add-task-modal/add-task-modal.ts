@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, ViewController, NavParams } from 'ionic-angular';
+import { TodoModel} from "../../data/todo-model";
 
 /**
  * Generated class for the AddTaskModalPage page.
@@ -15,7 +16,7 @@ import { IonicPage, ViewController, NavParams } from 'ionic-angular';
 })
 export class AddTaskModalPage {
 
-  public model = {desc:'', isDone:''};
+  public model = new TodoModel('',false);//necesarion inicializar, si no, explota
   public tittle: string = "Add new task";
   public buttonText:string = "ADD";
 
@@ -28,7 +29,7 @@ export class AddTaskModalPage {
   }
 
   clone(todo){
-    return {desc: todo.desc, isDone: todo.isDone};
+    return new TodoModel(todo.desc, todo.isDone);
   }
 
   dismiss(){
@@ -36,7 +37,7 @@ export class AddTaskModalPage {
   }
 
   save(model){
-    console.log(model);
+    this.model = new TodoModel(model.desc, model.isDone);
     this.viewCtrl.dismiss(this.model);
   }
 }
