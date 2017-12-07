@@ -22,7 +22,7 @@
   <ion-list no-lines>
     <form class="container"></form>
     <ion-item>
-      <ion-input placeholder="Task description" name="desc" clearInput [(ngModel)]="model.desc" required #description="ngModel"></ion-input>
+      <ion-input placeholder="Task description" name="description" clearInput [(ngModel)]="model.description" required #description="ngModel"></ion-input>
     </ion-item>
 
     <ion-item color="danger" [hidden]="description.valid || description.untouched">

@@ -19,7 +19,7 @@
     <ion-item-sliding *ngFor="let todo of todoService.todos | undoneTodosPipe">
 
       <ion-item>
-        <ion-label>{{todo.desc}}</ion-label>
+        <ion-label>{{todo.description}}</ion-label>
         <ion-checkbox [checked]="todo.isDone" (click)="toogleChecked(todo)"></ion-checkbox>
       </ion-item>
 
@@ -37,7 +37,7 @@
 
     <ion-item-divider *ngIf="(todoService.todos | doneTodosPipe).length > 0"> Done tasks</ion-item-divider>
     <ion-item *ngFor="let todo of todoService.todos | doneTodosPipe">
-      <ion-label>{{todo.desc}}</ion-label>
+      <ion-label>{{todo.description}}</ion-label>
       <ion-checkbox [checked]="todo.isDone" (click)="toogleChecked(todo)"></ion-checkbox>
 
     </ion-item>

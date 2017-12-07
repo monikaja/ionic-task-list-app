@@ -22,9 +22,7 @@ export class ListServiceProvider {
     this.getFromServer();
   }
 
-  /**
-   * @Deprecated
-   */
+  /*
   public getFromStorage(){
     this.storage.ready().then( () => {
       this.storage.get('list').then( data => {
@@ -38,6 +36,7 @@ export class ListServiceProvider {
       })
     })
   }
+  */
 
   public saveStorage(){
     this.storage.ready().then( () => {
@@ -63,7 +62,7 @@ export class ListServiceProvider {
           this.saveStorage();
         },
         error => {
-          console.log("Error");
+          console.log("Error getting lists from server", error);
         }
       )
   }

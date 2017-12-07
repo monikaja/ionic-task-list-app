@@ -16,28 +16,28 @@ import { TodoModel} from "../../data/todo-model";
 })
 export class AddTaskModalPage {
 
-  public model = new TodoModel('',false);//necessary to initialize
+  public model:TodoModel;
   public tittle: string = "Add new task";
   public buttonText:string = "ADD";
 
   constructor(public viewCtrl: ViewController, public navParams: NavParams) {
     if(this.navParams.get('todo')){
-      this.model = this.clone(this.navParams.get('todo'));
+      this.model = TodoModel.clone(this.navParams.get('todo'));
       this.tittle = "Edit task";
       this.buttonText = "Save changes";
     }
-  }
-
-  clone(todo){
-    return new TodoModel(todo.desc, todo.isDone);
+    else{
+      let listId = this.navParams.get('listId');
+      this.model = new TodoModel('', listId);
+    }
   }
 
   dismiss(){
     this.viewCtrl.dismiss();
   }
 
-  save(model){
-    this.model = new TodoModel(model.desc, model.isDone);
+  save(item){
+    this.model = new TodoModel(item.description,  item.listId, item.isImportant, item.isDone, item.id);
     this.viewCtrl.dismiss(this.model);
   }
 }
