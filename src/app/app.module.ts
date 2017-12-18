@@ -9,11 +9,12 @@ import { TodosPage } from '../pages/todos/todos';
 import { AddTaskModalPage } from "../pages/add-task-modal/add-task-modal";
 import { ListsPage} from "../pages/lists/lists";
 import { TodoServiceProvider } from '../providers/todo-service/todo-service';
-import { HttpClientModule } from '@angular/common/http';
 import { DoneTodosPipe } from "../pipes/done-todos/done-todos";
 import { UndoneTodosPipe } from "../pipes/undone-todos/undone-todos";
 import { ListServiceProvider } from '../providers/list-service/list-service';
 import { IonicStorageModule } from '@ionic/storage';
+// import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { IonicStorageModule } from '@ionic/storage';
   ],
   imports: [
     BrowserModule,
+    // HttpModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
@@ -42,8 +44,7 @@ import { IonicStorageModule } from '@ionic/storage';
     SplashScreen,
     TodoServiceProvider,
     ListServiceProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ListServiceProvider
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}

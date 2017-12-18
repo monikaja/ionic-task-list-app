@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { TodosPage} from "../todos/todos";
 import { AlertController} from "ionic-angular";
 
@@ -21,7 +21,8 @@ import { ListModel} from "../../data/list-model";
 export class ListsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public alertCtrl: AlertController, public listService:ListServiceProvider) {
+              public alertCtrl: AlertController, public listService:ListServiceProvider,
+              private loadingCtrl: LoadingController) {
   }
 
   goToList(list: ListModel):void{
@@ -41,11 +42,20 @@ export class ListsPage {
       buttons: [
         {
           text: 'Cancel',
-          handler: data => {}
+          handler: () => {
+            addListalert.dismiss();
+            return false;//fix alert
+          }
         },
         {
           text: 'Accept',
-          handler: data => {this.addList(data.name)}
+          handler: data => {
+            let navTransition = addListalert.dismiss();
+            navTransition.then(()=> {
+              this.addList(data.name)
+            });
+            return false;//fix alert
+          }
         }
       ]
     });
@@ -54,8 +64,17 @@ export class ListsPage {
   }
 
   addList(name:string):void{
-    let list= this.listService.addList(name);
-    this.listService.saveStorage();
-    this.goToList(list);
+    let loader = this.loadingCtrl.create();
+    loader.present();
+
+    this.listService.addList(name)
+      .subscribe( list => {
+        this.goToList(list);
+        loader.dismiss();
+      },
+        error => {
+          loader.dismiss();
+        });
+
   }
 }

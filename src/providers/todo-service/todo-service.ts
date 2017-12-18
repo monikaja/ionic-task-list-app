@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+// import { Http } from "@angular/http";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TodoModel} from "../../data/todo-model";
 import { Storage} from "@ionic/storage";
 import { AppSettings} from "../../data/app-settings";
@@ -9,6 +10,11 @@ import { AppSettings} from "../../data/app-settings";
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable()
 export class TodoServiceProvider {
 
@@ -19,12 +25,12 @@ export class TodoServiceProvider {
 
 
   loadFromList(id:number):void{
-    // this.getFromStorage(id);
-    this.getFromServer(id);
+    this.getFromStorage(id);
+    // this.getFromServer(id);
   }
 
   private getFromServer(id){
-    this.http.get(AppSettings.API_BASEURL + '/lists/'+id+'/todos')
+    return this.http.get(AppSettings.API_BASEURL + '/lists/'+id+'/todos', httpOptions)
       .map(response => { return JSON.parse(JSON.stringify(response))})
       .map((todos:Object[]) => {
         return todos.map (item => TodoModel.fromJson(item))
@@ -40,9 +46,9 @@ export class TodoServiceProvider {
       )
   }
 
-  /*
+
   private getFromStorage(id:number){
-    this.storage.ready().then( () => {
+    return this.storage.ready().then( () => {
       this.storage.get('list/'+id).then( data => {
         if(!data){
           this.todos = [];
@@ -57,7 +63,7 @@ export class TodoServiceProvider {
 
     })
   }
-  */
+
   public saveStorage(id:number){
     this.storage.ready().then( ()=> {
       this.storage.set(`list/${id}`, this.todos);
