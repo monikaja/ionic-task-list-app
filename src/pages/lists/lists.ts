@@ -20,12 +20,14 @@ import { ListModel} from "../../data/list-model";
 })
 export class ListsPage {
 
+  public selectedList:ListModel = null;
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public alertCtrl: AlertController, public listService:ListServiceProvider,
               private loadingCtrl: LoadingController) {
   }
 
   goToList(list: ListModel):void{
+    this.clearSelected();
     this.navCtrl.push(TodosPage, {list});
   }
 
@@ -76,5 +78,23 @@ export class ListsPage {
           loader.dismiss();
         });
 
+  }
+
+  clearSelected(){
+    this.selectedList = null;
+  }
+
+  selectList(list:ListModel){
+    if(this.selectedList == list){
+      this.clearSelected();
+    }
+    else{
+      this.selectedList = list;
+    }
+  }
+
+  removeSelectedList(){
+    this.listService.removeList(this.selectedList);
+    this.clearSelected();
   }
 }

@@ -1,7 +1,7 @@
 // import { Http } from "@angular/http";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ListModel} from "../../data/list-model";
+import { ListModel } from "../../data/list-model";
 import { Storage} from "@ionic/storage";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
@@ -98,5 +98,15 @@ export class ListServiceProvider {
     observable.subscribe( ()=> {}, ()=> {});
 
     return observable;
+  }
+
+  public removeList(list: ListModel){
+    this.deleteListFromServer(list.id).subscribe(
+      ()=> {
+        let index = this.list.indexOf((list));
+        this.list = [...this.list.slice(0,index), ...this.list.slice(index+1)];
+        this.saveStorage();
+      }
+    )
   }
 }
