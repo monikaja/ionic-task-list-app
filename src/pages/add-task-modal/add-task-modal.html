@@ -20,22 +20,23 @@
 
 <ion-content>
   <ion-list no-lines>
-    <form class="container"></form>
-    <ion-item>
-      <ion-input placeholder="Task description" name="description" clearInput [(ngModel)]="model.description" required #description="ngModel"></ion-input>
-    </ion-item>
+    <form class="container">
+      <ion-item>
+        <ion-input placeholder="Task description" name="description" clearInput [(ngModel)]="model.description" required #description="ngModel"></ion-input>
+      </ion-item>
 
-    <ion-item color="danger" [hidden]="description.valid || description.untouched">
-      Description is required
-    </ion-item>
+      <ion-item color="danger" [hidden]="description.valid || description.untouched">
+        Description is required
+      </ion-item>
 
-    <ion-item>
-      <ion-label>Is important</ion-label>
-      <ion-checkbox color="dark" [(ngModel)]="model.isDone" name="isDone"></ion-checkbox>
-    </ion-item>
+      <ion-item>
+        <ion-label>Is important</ion-label>
+        <ion-checkbox color="dark" [(ngModel)]="model.isDone" name="isDone"></ion-checkbox>
+      </ion-item>
 
-    <div class="save-button">
-      <button ion-button block type="button" (click)="save(model)" [disabled]="!description.valid">{{buttonText}}</button>
-    </div>
+      <div class="save-button">
+        <button ion-button block type="button" (click)="save(model)" [disabled]="!description.valid">{{buttonText}}</button>
+      </div>
+    </form>
   </ion-list>
 </ion-content>
